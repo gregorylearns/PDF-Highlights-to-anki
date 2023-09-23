@@ -8,6 +8,28 @@ from markdownify import MarkdownConverter
 
 
 
+def replace_multiple(text):
+    """
+    Replace multiple strings in the text using a dictionary of find-and-replace pairs.
+
+    Args:
+        text (str): The input text where replacements will be performed.
+
+    Returns:
+        str: The text with replacements.
+    """
+    replace_dict = {
+        "\n": "<br>",
+        " ●": " <br>●",
+        " ▪": " <br>▪",
+        " ○": " <br>○"
+    }
+    
+    for find, replace in replace_dict.items():
+        text = text.replace(find, replace)
+    return text
+
+
 def extract_html(soup):
 	# Extract the text per row class and preserve the tags
 	formatted_text = ""
@@ -19,28 +41,37 @@ def extract_html(soup):
 	    # Extract and format the text
 	    for element in row.find_all(class_=['highlight', 'highlight underline']):
 	        text = element.get_text()
-	        
+
 	        if 'underline' in element['class']:
 	            if underline_flag:
-	                formatted_text += f' {text}'
+	                row_text += f' {text}'
 	            else:
-	                formatted_text += f'${text}'
+	                row_text += f'${text}'
 	            underline_flag = True
 	        else:
 	            if underline_flag:
-	                formatted_text += f'$ {text}'
+	                row_text += f'$ {text}'
 	                underline_flag = False
 	            else:
 	                # pass
-	                formatted_text += f'{text}'
+	                row_text += f'{text}'
 	    
+	    if underline_flag: #fixed bug if last word is underlined kay di maapil sa cloze
+	        row_text += f'$'
+	        underline_flag = False
+
+
 	        # Print the formatted text
 	        # print(formatted_text)
 
 	        
 	        # row_text += text
 	    
+	    row_text = replace_multiple(row_text)
+	    print(f"row_text:\n{row_text}")
 	    formatted_text += row_text + "\n"
+	    # print("formatted")
+	    # print(formatted_text)
 
 	# Print the formatted text
 	# print(formatted_text)
