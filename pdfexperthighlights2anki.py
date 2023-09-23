@@ -4,7 +4,6 @@ import argparse
 import datetime
 import random
 from bs4 import BeautifulSoup
-from markdownify import MarkdownConverter
 
 
 
