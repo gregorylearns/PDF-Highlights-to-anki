@@ -14,8 +14,8 @@ $zipFile = Join-Path -Path $scriptDirectory -ChildPath "main.zip"
 Invoke-WebRequest -Uri $zipUrl -OutFile $zipFile
 
 # Check if the download was successful
-if (Test-Path $localPath) {
-    Write-Host "Download complete. The zip file is saved at: $localPath"
+if (Test-Path $zipFile) {
+    Write-Host "Download complete. The zip file is saved at: $zipFile"
 } else {
     Write-Host "Download failed."
 }
@@ -38,6 +38,7 @@ if (Test-Path -Path $baseDirectory -PathType Container) {
     # Move each item to the base directory
     foreach ($item in $itemsToMove) {
         $destinationPath = Join-Path -Path $PSScriptRoot -ChildPath $item.Name
+        echo $destinationPath
         Move-Item -Path $item.FullName -Destination $destinationPath -Force
     }
 
