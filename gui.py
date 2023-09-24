@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
 import os
 import subprocess
-import pdfexperthighlights2anki
+import pdfexperthighlights2anki as h2anki
 
 # Define the output folder
 output_folder = "anki_converted"
@@ -14,11 +14,12 @@ layout = [
     [sg.Text("Select an HTML file:")],
     [sg.InputText(key="file_path", size=(40, 1)), sg.FileBrowse(file_types=(("HTML Files", "*.html"),))],
     [sg.Text("Enter Deck Name:"), sg.InputText(key="deck_name")],
+    [sg.Checkbox("Edit File Before Conversion (.apkg)", key='-EDIT-')],
     [sg.Button("Run Script"), sg.Button("Exit")],
 ]
 
 # Create the window
-window = sg.Window("PDF Expert Highlights to Anki v0.0.1", layout, finalize=True)
+window = sg.Window("PDF Expert Highlights to Anki v0.0.3", layout, finalize=True)
 
 while True:
     event, values = window.read()
@@ -28,6 +29,8 @@ while True:
     elif event == "Run Script":
         file_path = values["file_path"]
         deck_name = values["deck_name"]
+        edit_file = values['-EDIT-']
+        print(f"edit file value: {edit_file}")
 
         if not file_path:
             sg.popup_error("Please select an HTML file.")
@@ -42,7 +45,7 @@ while True:
             continue
 
         # Run your script here, for example:
-        # subprocess.run(["pdfexperthighlights2anki.py", file_path, deck_name])
+        # subprocess.run(["h2anki.py", file_path, deck_name])
         # Simulate script completion by copying the file to the output folder
         output_folder = "anki_converted"
         output_path = os.path.join(output_folder, f"{deck_name}.apkg")
@@ -50,8 +53,30 @@ while True:
         try:
             os.makedirs(output_folder, exist_ok=True)
             with open(file_path, "rb") as source_file, open(output_path, "wb") as destination_file:
-                pdfexperthighlights2anki.main(file_path, deck_name)
+                final_clozed_list = h2anki.main(file_path, deck_name, edit_file)
+
+                if edit_file == False:
+                    h2anki.generate_from_final_clozed_list(final_clozed_list,deck_name)
+
+                else:
+                    clozed_list_w_edits = h2anki.list_to_text(final_clozed_list, deck_name)
+                    h2anki.open_in_notepad(clozed_list_w_edits)
+
+                    ch = sg.popup_ok_cancel("Done with editing the file in notepad?", 
+                        "Save the file in notepad, exit file, then click OK",  
+                        title="OkCancel")
+                   
+                    if ch=="OK":
+                       print ("You pressed OK")
+                       final_clozed_list_w_edits = h2anki.textfile_to_list(clozed_list_w_edits)
+                       h2anki.generate_from_final_clozed_list(final_clozed_list_w_edits,deck_name)
+                   
+                    if ch=="Cancel":
+                       print ("You pressed Cancel")
+
+
             sg.popup(f"Script completed! Processed file saved in '{output_folder}' folder")
+            h2anki.cleanup_temp_files()
 
         except Exception as e:
             sg.popup_error(f"An error occurred: {e}")
