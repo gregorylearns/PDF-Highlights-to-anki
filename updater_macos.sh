@@ -2,17 +2,17 @@
 
 # Check if the current directory is a Git repository
 if [ ! -d .git ]; then
-  echo "This directory is not a Git repository. Please run this script in a Git repository."
+  osascript -e 'display dialog "This directory is not a Git repository. Please run this script in a Git repository." buttons {"OK"} default button "OK"'
   exit 1
 fi
 
 # Update the local repository with the latest changes
-git pull origin master --rebase
+git pull origin main --rebase
 
 # Check if the pull was successful
 if [ $? -eq 0 ]; then
-    echo "Git pull successful."
+    osascript -e 'display dialog "Git pull successful." buttons {"OK"} default button "OK"'
 else
-    echo "Failed to update the Git repository."
+    osascript -e 'display dialog "Failed to update the Git repository." buttons {"OK"} default button "OK"'
     exit 1
 fi
