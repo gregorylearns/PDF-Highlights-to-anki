@@ -1,3 +1,6 @@
+Add-Type -AssemblyName PresentationFramework
+Add-Type -AssemblyName System.Windows.Forms
+
 # Get the directory of the script
 $scriptDirectory = Split-Path -Parent $MyInvocation.MyCommand.Definition
 
@@ -50,3 +53,18 @@ if (Test-Path -Path $baseDirectory -PathType Container) {
 
 # Output a message indicating that the update is complete
 Write-Host "Update complete. The latest code is now in $scriptDirectory"
+
+
+
+# Check if the installation was successful
+if ($LASTEXITCODE -eq 0) {
+    Write-Host "Packages installed successfully!"
+    
+    # Display a dialog message
+    [System.Windows.MessageBox]::Show("Packages installed successfully!", "Success", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
+} else {
+    Write-Host "Installation failed. Please check for errors."
+    
+    # Display an error dialog message
+    [System.Windows.MessageBox]::Show("Installation failed. Please check for errors.", "Error", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)
+}
