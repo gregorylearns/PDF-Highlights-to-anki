@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-GNU%20GPLv3-blue.svg)](https://opensource.org/licenses/GPL-3.0)
 
-**Current Version:** 0.0.3 (Alpha Stage) 🚧
+**Current Version:** 0.0.4 (Alpha Stage) 🚧
 
 Convert PDF Expert annotations from iOS app into Anki cards. Highlighted text becomes cards, and those with red underlines become cloze deletions. Exports to .apkg format.
 
