@@ -1,7 +1,9 @@
 import PySimpleGUI as sg
 import os
 import subprocess
+import webbrowser
 import pdfexperthighlights2anki as h2anki
+
 
 # Define the output folder
 output_folder = "anki_converted"
@@ -15,17 +17,24 @@ layout = [
     [sg.InputText(key="file_path", size=(40, 1)), sg.FileBrowse(file_types=(("HTML Files", "*.html"),))],
     [sg.Text("Enter Deck Name:"), sg.InputText(key="deck_name")],
     [sg.Checkbox("Edit File Before Conversion (.apkg)", key='-EDIT-')],
-    [sg.Button("Run Script"), sg.Button("Exit")],
+    [sg.Button("Run Script"), sg.Button("Check for Updates"), sg.Button("Exit")],
 ]
 
 # Create the window
-window = sg.Window("PDF Expert Highlights to Anki v0.0.3", layout, finalize=True)
+window = sg.Window("PDF Expert Highlights to Anki v0.0.4", layout, finalize=True)
 
 while True:
     event, values = window.read()
 
     if event == sg.WIN_CLOSED or event == "Exit":
         break
+    elif event == "Check for Updates":
+        # Define the URL to the update page
+        update_url = "https://github.com/gregorylearns/PDF-Highlights-to-anki/releases"
+        # Open the URL in the default web browser
+        webbrowser.open(update_url)
+
+
     elif event == "Run Script":
         file_path = values["file_path"]
         deck_name = values["deck_name"]
