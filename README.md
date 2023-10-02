@@ -61,14 +61,14 @@ To build the PDF Highlights to Anki application from source code, follow these s
 2. Launch the PSG Compiler:
 
    ```bash
-psgcompiler
+    psgcompiler
    ```
 
-In the PSG Compiler window that pops up:
+3. In the PSG Compiler window that pops up:
 
--In the 'Python Script' field, select the `gui.pyw` file.
--Under `Icon`, select the logo located at `build/icon/icon_128.ico`.
--Press the `Convert` button to build the application.
+- In the 'Python Script' field, select the `gui.pyw` file.
+- Under `Icon`, select the logo located at `build/icon/icon_128.ico`.
+- Press the `Convert` button to build the application.
 
 ## Command Line Interface (CLI) Usage
 
