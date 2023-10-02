@@ -28,8 +28,9 @@ This tool is designed to extract annotations made in the iOS app PDF Expert and 
 2. **Annotation Tools**: Use the text highlight tool and text underline tool in PDF Expert. Avoid using the freehand highlight/underline tool, as it may not extract the text effectively.
 3. **Export Annotations**: Export your annotations by going to "Annotations Summary" in PDF Expert.
 4. **Run the Tool**:
-   - Use `gui.py` for a graphical user interface.
-   - Alternatively, you can use the command line.
+   - Download and run a binary (`.exe`) from the [Releases](https://github.com/gregorylearns/PDF-Highlights-to-anki/releases) page
+   - Use `gui.pyw` for a graphical user interface.
+   - Alternatively, you can use the [command line](## Command Line Interface (CLI) Usage).
 5. **Run with HTML**: Use the exported HTML file with the tool.
 6. **Open the .apkg File**: After processing, you can find the generated .apkg file in the "anki_converted" folder.
 7. **???**
@@ -46,6 +47,28 @@ This tool is designed to extract annotations made in the iOS app PDF Expert and 
 ## Future Roadmap
 
 - The future roadmap includes support for exporting annotation summaries from other apps such as Foxit PDF and more.
+
+## Building Instructions 🛠️
+
+To build the PDF Highlights to Anki application from source code, follow these steps:
+
+1. Install the necessary dependencies, including PySimpleGUI, BeautifulSoup4, Genanki, and PSG Compiler:
+
+   ```bash
+   pip install psgcompiler beautifulsoup4 genanki pysimplegui
+   ```
+
+2. Launch the PSG Compiler:
+
+   ```bash
+psgcompiler
+  ```
+
+In the PSG Compiler window that pops up:
+
+-In the 'Python Script' field, select the `gui.pyw` file.
+-Under `Icon`, select the logo located at `build/icon/icon_128.ico`.
+-Press the `Convert` button to build the application.
 
 ## Command Line Interface (CLI) Usage
 
