@@ -62,7 +62,7 @@ To build the PDF Highlights to Anki application from source code, follow these s
 
    ```bash
 psgcompiler
-  ```
+   ```
 
 In the PSG Compiler window that pops up:
 
