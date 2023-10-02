@@ -30,7 +30,7 @@ This tool is designed to extract annotations made in the iOS app PDF Expert and 
 4. **Run the Tool**:
    - Download and run a binary (`.exe`) from the [Releases](https://github.com/gregorylearns/PDF-Highlights-to-anki/releases) page
    - Use `gui.pyw` for a graphical user interface.
-   - Alternatively, you can use the [command line](##command-line-interface-cli-usage).
+   - Alternatively, you can use the [command line](#command-line-interface-cli-usage).
 5. **Run with HTML**: Use the exported HTML file with the tool.
 6. **Open the .apkg File**: After processing, you can find the generated .apkg file in the "anki_converted" folder.
 7. **???**
